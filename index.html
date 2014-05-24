@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocalizacion</title>
+<link href="css/jquery.mobile.structure-1.0.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/Placas.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+
+<script src="js/jquery-1.6.4.min.js"></script>
+<script src="js/jquery.mobile-1.0.min.js"></script>
+<script type="text/javascript"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <!--
+    Include the maps javascript with sensor=true because this code is using a
+    sensor (a GPS locator) to determine the user's location.
+    See: https://developers.google.com/maps/documentation/javascript/tutorial#Loading_the_Maps_API
+    -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+
+    <script>
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see a blank space instead of the map, this
+// is probably because you have denied permission for location sharing.
+
+var map;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 16
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  // Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+
+	
+
+
+      var posicion = new google.maps.Marker({
+        map: map,
+        position: pos,
+		icon:'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00ff59/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/male-2.png',
+        
+      });
+	  
+	  var popu = new google.maps.InfoWindow({
+        content:'Por aquí andas!' 
+    });
+ popu.open(map, posicion);
+ 
+	  
+	  map.setCenter(pos);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+function hospitales(){
+var imss = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.468042, -97.684411),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-f34648/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/hospital-building.png',
+       });
+	
+	var seg = new google.maps.InfoWindow({
+        content:' IMSS Libres ', 
+    });
+ 
+     google.maps.event.addListener(imss, 'click', function(){
+        seg.open(map, imss);
+    });
+	
+	var hosp = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.457812, -97.680597),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-f34648/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/hospital-building.png',
+       });
+	
+	var hos = new google.maps.InfoWindow({
+        content: ' Hospital Regional Libres ', 
+    });
+ 
+     google.maps.event.addListener(hosp, 'click', function(){
+        hos.open(map, hosp);
+    });
+	
+	var ahos = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.464417, -97.683911),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-f34648/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/hospital-building.png',
+       });
+	
+	var hv = new google.maps.InfoWindow({
+        content: ' Antiguo Hospital Libres ', 
+    });
+ 
+     google.maps.event.addListener(ahos, 'click', function(){
+        hv.open(map, ahos);
+    });
+	
+	
+ }
+
+
+function escuelas(){
+	var tec = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.459858, -97.674650),
+		icon: 'http://www.impulsapuebla.org.mx/emprendedores/wp-content/themes/impulsaPueblav3/images/logos_participantes/14.jpg',
+       });
+	
+	var itsl = new google.maps.InfoWindow({
+        content: 'Instituto Tecnologico Superior de Libres', 
+    });
+ 
+     google.maps.event.addListener(tec, 'click', function(){
+        itsl.open(map, tec);
+    });
+	
+	
+	var coba = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.459208, -97.680266),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00e1ff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/highschool.png',
+       });
+	
+	var cobaep = new google.maps.InfoWindow({
+        content: 'COBAEP Plantel 25 Libres', 
+    });
+ 
+     google.maps.event.addListener(coba, 'click', function(){
+        cobaep.open(map, coba);
+    });
+	
+	var sectec = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.456672, -97.679348),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00e1ff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/highschool.png',
+       });
+	
+	var est = new google.maps.InfoWindow({
+        content: 'Escuela Secundaria Tecnica No. 97', 
+    });
+ 
+     google.maps.event.addListener(sectec, 'click', function(){
+        est.open(map, sectec);
+    });
+	
+	
+	
+	var buap = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.464883, -97.687251),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00e1ff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/highschool.png',
+       });
+	
+	var pb = new google.maps.InfoWindow({
+        content: 'Preparatoria BUAP Unidad Regional Libres', 
+    });
+ 
+     google.maps.event.addListener(buap, 'click', function(){
+        pb.open(map, buap);
+    });
+	
+	
+	var ies = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.463579, -97.688050),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-08e2ff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/university.png',
+       });
+	
+	var iesl = new google.maps.InfoWindow({
+        content: 'IES Libres', 
+    });
+ 
+     google.maps.event.addListener(ies, 'click', function(){
+        iesl.open(map, ies);
+    });
+	
+		var secmac = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.456674, -97.687226),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00e1ff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/highschool.png',
+       });
+	
+	var mac = new google.maps.InfoWindow({
+        content: 'Escuela Secundaria Manuel Avila Camacho', 
+    });
+ 
+     google.maps.event.addListener(secmac, 'click', function(){
+        mac.open(map, secmac);
+    });
+	
+			var ce = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.477313, -97.679517),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-00bbff/shapecolor-white/shadow-1/border-color/symbolstyle-color/symbolshadowstyle-no/gradient-no/school.png',
+       });
+	
+	var cen = new google.maps.InfoWindow({
+        content: 'Centro Escolar Libres', 
+    });
+ 
+     google.maps.event.addListener(ce, 'click', function(){
+        cen.open(map, ce);
+    });
+	
+}
+
+function restaurantes(){
+	
+	var cc = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466686, -97.682340),
+		icon: 'https://yt3.ggpht.com/-ERtBVMFtX00/AAAAAAAAAAI/AAAAAAAAAAA/TqYs7Q4yvlo/s48-c-k-no/photo.jpg',
+       });
+	
+	var crus = new google.maps.InfoWindow({
+        content: 'THE KRUSTY KRAB by CHEKE', 
+    });
+ 
+     google.maps.event.addListener(cc, 'click', function(){
+        crus.open(map, cc);
+    });
+	
+	
+	var cab = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466516, -97.682319),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-8c4eb8/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/restaurant_thai.png',
+       });
+	
+	var caba = new google.maps.InfoWindow({
+        content: 'Restaurante La Cabaña', 
+    });
+ 
+     google.maps.event.addListener(cab, 'click', function(){
+        caba.open(map, cab);
+    });
+	
+	var dio = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466642, -97.685620),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-8c4eb8/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/restaurant_thai.png',
+       });
+	
+	var dion = new google.maps.InfoWindow({
+        content: 'Restaurante Los Dionicios', 
+    });
+ 
+     google.maps.event.addListener(dio, 'click', function(){
+        dion.open(map, dio);
+    });
+	
+		var mvsj = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.463580, -97.687700),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-8c4eb8/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/restaurant.png',
+       });
+	
+	var sj = new google.maps.InfoWindow({
+        content: 'Restaurante Mi Viejo San Juan', 
+    });
+ 
+     google.maps.event.addListener(mvsj, 'click', function(){
+        sj.open(map, mvsj);
+    });
+	
+	var dw = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466846, -97.689097),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-8c4eb8/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/restaurant.png',
+       });
+	
+	var db = new google.maps.InfoWindow({
+        content: 'Cocina Doña Blanca', 
+    });
+ 
+     google.maps.event.addListener(dw, 'click', function(){
+        db.open(map, dw);
+    });
+	
+		var pak = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.464112, -97.688159),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-8c4eb8/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/restaurant.png',
+       });
+	
+	var pakal = new google.maps.InfoWindow({
+        content: 'Restaurante El Pakal', 
+    });
+ 
+     google.maps.event.addListener(pak, 'click', function(){
+        pakal.open(map, pak);
+    });
+	}
+
+function plazas(){
+	var ba = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466012, -97.689987),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-5ec8bd/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/supermarket.png',
+       });
+	
+	var bodega = new google.maps.InfoWindow({
+        content: 'Bodega Aurrera', 
+    });
+ 
+     google.maps.event.addListener(ba, 'click', function(){
+        bodega.open(map, ba);
+    });
+	
+	var co = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.466121, -97.689662),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-5ec8bd/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/departmentstore.png',
+       });
+	
+	var cop = new google.maps.InfoWindow({
+        content: 'Tienda Departamental COPPEL', 
+    });
+ 
+     google.maps.event.addListener(co, 'click', function(){
+        cop.open(map, co);
+    });
+}
+
+function lugares(){
+var par = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.464162, -97.687624),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-66c547/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/urbanpark.png',
+       });
+	
+	var park = new google.maps.InfoWindow({
+        content: 'Parque de Libres', 
+    });
+ 
+     google.maps.event.addListener(par, 'click', function(){
+        park.open(map, par);
+    });
+	
+	var pal = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(19.464707, -97.687619),
+		icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-66c547/shapecolor-color/shadow-1/border-dark/symbolstyle-contrast/symbolshadowstyle-dark/gradient-iphone/palace-2.png',
+       });
+	
+	var pre = new google.maps.InfoWindow({
+        content: 'Presidencia de Libres', 
+    });
+ 
+     google.maps.event.addListener(pal, 'click', function(){
+        pre.open(map, pal);
+    });
+	
+	
+	
+}
+	
+<!------------------------------------------------------------------------------->
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: Fallo el servicio de Geolocalizacion.';
+  } else {
+    var content = 'Error: Tu dispositivo no soporta geolocalizacion.';
+  }
+
+  var options = {
+    map: map,
+    position: new google.maps.LatLng(60, 105),
+    content: content
+  };
+
+  var infowindow = new google.maps.InfoWindow(options);
+  map.setCenter(options.position);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+  <div data-role="header" data-theme="c" >
+<h3 align="center">Bienvenido</h3>
+  </div>
+  <h3 align="center">
+  <div id="map-canvas" style="width:475px ;height:420px"></div></h3>
+  <p align="center">Pulsa en cualquier apartado para ver los sitios en el mapa, después pulsa el icono del sitio de tu elección para ver su información.</p>
+  <p> <a href="#" onclick="hospitales()" data-role="button" data-transition="pop" >Hospitales</a>
+    <a href="#" onclick="escuelas()" data-role="button" data-transition="pop" >Escuelas</a>
+    <a href="#" onclick="restaurantes()" data-role="button" data-transition="pop" >Restaurantes</a>
+    <a href="#" onclick="plazas()" data-role="button" data-transition="pop" >Plazas Comerciales</a>
+    <a href="#" onclick="lugares()" data-role="button" data-transition="pop" >Sitios Populares</a>
+  <h2 align="center"> 
+  </p>
+  
+ <div id="locationinfo"></div>
+  </body>
+</html>
